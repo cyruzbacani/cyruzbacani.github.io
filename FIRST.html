@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <title>Welcome to my E-Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, 
+                rgb(250, 245, 255) 0%, 
+                rgb(252, 231, 243) 50%, 
+                rgb(239, 246, 255) 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .background-elements {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-blob-1 {
+            position: absolute;
+            top: -40px;
+            left: -40px;
+            width: 288px;
+            height: 288px;
+            background: linear-gradient(45deg, 
+                rgba(196, 181, 253, 0.3) 0%, 
+                rgba(251, 207, 232, 0.3) 100%);
+            border-radius: 50%;
+            filter: blur(48px);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .bg-blob-2 {
+            position: absolute;
+            bottom: -40px;
+            right: -40px;
+            width: 384px;
+            height: 384px;
+            background: linear-gradient(45deg, 
+                rgba(147, 197, 253, 0.3) 0%, 
+                rgba(196, 181, 253, 0.3) 100%);
+            border-radius: 50%;
+            filter: blur(48px);
+            animation: pulse 2s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        .bg-blob-3 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 256px;
+            height: 256px;
+            background: linear-gradient(45deg, 
+                rgba(251, 207, 232, 0.2) 0%, 
+                rgba(254, 240, 138, 0.2) 100%);
+            border-radius: 50%;
+            filter: blur(32px);
+            animation: pulse 2s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+
+        .sparkle {
+            position: absolute;
+            color: #d8b4fe;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .sparkle-1 {
+            top: 80px;
+            left: 80px;
+            font-size: 16px;
+        }
+
+        .sparkle-2 {
+            top: 128px;
+            right: 128px;
+            font-size: 12px;
+            color: #f9a8d4;
+            animation-delay: 0.7s;
+        }
+
+        .sparkle-3 {
+            bottom: 160px;
+            left: 25%;
+            font-size: 20px;
+            color: #93c5fd;
+            animation-delay: 1s;
+        }
+
+        .sparkle-4 {
+            bottom: 80px;
+            right: 80px;
+            font-size: 16px;
+            animation-delay: 0.3s;
+        }
+
+        .sparkle-5 {
+            top: 50%;
+            left: 64px;
+            font-size: 12px;
+            color: #f9a8d4;
+            animation-delay: 1.5s;
+        }
+
+        .sparkle-6 {
+            top: 33%;
+            right: 64px;
+            font-size: 16px;
+            color: #93c5fd;
+            animation-delay: 0.8s;
+        }
+
+        .content {
+            transform: translateY(32px);
+            opacity: 0;
+            transition: all 1s ease-out;
+        }
+
+        .content.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 4.5rem);
+            font-weight: 300;
+            margin-bottom: 16px;
+            background: linear-gradient(45deg, #9333ea, #ec4899, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .subtitle-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.875rem, 6vw, 3rem);
+            font-weight: 500;
+            background: linear-gradient(45deg, #9333ea, #ec4899, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .heart {
+            width: 24px;
+            height: 24px;
+            color: #f472b6;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        .description {
+            font-size: clamp(1.125rem, 3vw, 1.25rem);
+            color: #6b7280;
+            max-width: 512px;
+            margin: 0 auto 48px auto;
+            line-height: 1.6;
+        }
+
+        .decorative-line {
+            position: relative;
+            width: 128px;
+            height: 4px;
+            background: linear-gradient(90deg, #c084fc, #f9a8d4, #93c5fd);
+            border-radius: 9999px;
+            margin: 0 auto 48px auto;
+            opacity: 0.6;
+        }
+
+        .decorative-dot {
+            position: absolute;
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: #f472b6;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 32px;
+        }
+
+        .nav-link {
+            display: inline-block;
+            padding: 12px 32px;
+            background: linear-gradient(45deg, #9333ea, #ec4899, #3b82f6);
+            color: white;
+            text-decoration: none;
+            border-radius: 9999px;
+            font-weight: 500;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(147, 51, 234, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(147, 51, 234, 0.3);
+        }
+
+        .nav-link:nth-child(1) {
+            background: linear-gradient(45deg, #9333ea, #ec4899);
+        }
+
+        .nav-link:nth-child(2) {
+            background: linear-gradient(45deg, #ec4899, #3b82f6);
+        }
+
+        .nav-link:nth-child(3) {
+            background: linear-gradient(45deg, #3b82f6, #9333ea);
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .bottom-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 128px;
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.2), transparent);
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.8); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            
+            .subtitle-container {
+                flex-wrap: wrap;
+            }
+            
+            .heart {
+                width: 20px;
+                height: 20px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-link {
+                padding: 10px 24px;
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 640px) {
+            .nav-links {
+                flex-direction: row;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background elements -->
+    <div class="background-elements">
+        <div class="bg-blob-1"></div>
+        <div class="bg-blob-2"></div>
+        <div class="bg-blob-3"></div>
+    </div>
+
+    <!-- Floating sparkles -->
+    <div class="sparkle sparkle-1">✨</div>
+    <div class="sparkle sparkle-2">✨</div>
+    <div class="sparkle sparkle-3">✨</div>
+    <div class="sparkle sparkle-4">✨</div>
+    <div class="sparkle sparkle-5">✨</div>
+    <div class="sparkle sparkle-6">✨</div>
+
+    <!-- Main content -->
+    <div class="container">
+        <div class="content" id="content">
+            <!-- Greeting header -->
+            <div style="margin-bottom: 32px;">
+                <h1 class="main-title">hey,</h1>
+                <div class="subtitle-container">
+                    <div class="heart">❤️</div>
+                    <h2 class="subtitle">glad you are here</h2>
+                    <div class="heart">❤️</div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <p class="description">
+                welcome to my e-portfolio, take a time to explore and enjoy! :)
+            </p>
+
+            <!-- Decorative element -->
+            <div class="decorative-line">
+                <div class="decorative-dot"></div>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="nav-links">
+                <a href="PERSONAL SPACE.html" class="nav-link">my personal space</a>
+                <a href="tle-ict contents.html" class="nav-link">ICT-TLE</a>
+                <a href="apcode.html" class="nav-link">Araling Panlipunan</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom gradient overlay -->
+    <div class="bottom-overlay"></div>
+
+    <script>
+        // Trigger content animation after page load
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const content = document.getElementById('content');
+                content.classList.add('visible');
+            }, 100);
+        });
+
+        // Add some interactive sparkle effects
+        document.addEventListener('mousemove', function(e) {
+            // Create temporary sparkles on mouse move (optional enhancement)
+            if (Math.random() > 0.98) {
+                const sparkle = document.createElement('div');
+                sparkle.innerHTML = '✨';
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = e.clientX + 'px';
+                sparkle.style.top = e.clientY + 'px';
+                sparkle.style.color = ['#d8b4fe', '#f9a8d4', '#93c5fd'][Math.floor(Math.random() * 3)];
+                sparkle.style.fontSize = '12px';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.zIndex = '9999';
+                sparkle.style.animation = 'sparkle 1s ease-out forwards';
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    if (sparkle.parentNode) {
+                        sparkle.parentNode.removeChild(sparkle);
+                    }
+                }, 1000);
+            }
+        });
+
+             const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px) scale(1.05)';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
